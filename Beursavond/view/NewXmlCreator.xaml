@@ -1,0 +1,9 @@
+﻿<Window x:Class="Beursavond.view.NewXmlCreator"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Icon="../resources/Icon.png"
+        Title="Nieuwe dranklijst opstellen" Height="300" Width="300">
+    <Grid>
+        
+    </Grid>
+</Window>
