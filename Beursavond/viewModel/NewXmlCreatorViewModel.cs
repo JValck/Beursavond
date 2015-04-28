@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace Beursavond.viewModel {
     class NewXmlCreatorViewModel : INotifyPropertyChanged{
@@ -31,8 +33,15 @@ namespace Beursavond.viewModel {
 
         private void generateDefaultFileName() {
             fileName = "beursavond_" + DateTime.Now.ToString("ddd_d_MMM_yyyy") + ".xml";
+            int fileIndex = 1; //increased when file exists
+            string completeFilePath = fileDirectory + Path.DirectorySeparatorChar + fileName;
+            while (File.Exists(fileDirectory + Path.DirectorySeparatorChar + fileName)) {
+                fileName = Regex.Replace(fileName, @"(_[0-9]+)(_[0-9]+)\.xml$", "$1"); //remove fileIndex numbers
+                fileName = fileName.Replace(".xml", ""); // remove file extension
+                fileName += "_" + fileIndex + ".xml"; //remake file name
+                fileIndex++;
+            }
             FileNameDescription = "Bestand: " + fileName;
-
         }
 
         private void askUserForDirectory() {
