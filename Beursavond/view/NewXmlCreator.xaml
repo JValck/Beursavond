@@ -3,12 +3,40 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Icon="../resources/Icon.png"
         Title="Nieuwe dranklijst opstellen" Height="600" Width="800">
-    <DockPanel>
-        <Grid DockPanel.Dock="Top">
-            
-        </Grid>
-        
-        
+    <DockPanel LastChildFill="False">
+        <DockPanel LastChildFill="False" DockPanel.Dock="Top">
+            <!-- products control -->
+            <StackPanel DockPanel.Dock="Top" Orientation="Vertical">
+                <Label>Geef hieronder de dranken in die verkocht zullen worden.</Label>
+                <DataGrid
+                    HorizontalAlignment="Stretch" VerticalScrollBarVisibility="Auto"
+                    ColumnWidth="*"  ItemsSource="{Binding Drinks, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Name="DataGrid" IsReadOnly="False" CanUserAddRows="True" CanUserDeleteRows="True" CanUserResizeColumns="True" CanUserSortColumns="True" CanUserResizeRows="True">
+                </DataGrid>
+            </StackPanel>
+            <Grid DockPanel.Dock="Bottom" ><!-- For better layout-->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <StackPanel Background="OrangeRed" Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="3" Name="DeleteProductButton">
+                    <!-- Delete last row -->
+                    <Image Source="../resources/delete.png" MaxHeight="30"></Image>
+                    <Label  VerticalAlignment="Center" Foreground="White">
+                        Verwijder product
+                    </Label>
+                </StackPanel>                
+                <StackPanel Background="Chartreuse" Grid.Column="4" Orientation="Horizontal" Name="NewProductButton">
+                    <!-- new row-->
+                    <Image Source="../resources/addProduct.png" MaxHeight="30"></Image>
+                    <Label Margin="20 0 0 0" VerticalAlignment="Center" Foreground="White">
+                        Nieuw product
+                    </Label>
+                </StackPanel>
+            </Grid>                    
+        </DockPanel>
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBar.ItemsPanel>
                 <ItemsPanelTemplate>

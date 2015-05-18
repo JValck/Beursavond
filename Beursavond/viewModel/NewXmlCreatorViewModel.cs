@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using System.Windows.Controls;
+using System.Collections.ObjectModel;
+using Beursavond.model;
 
 namespace Beursavond.viewModel {
     class NewXmlCreatorViewModel : INotifyPropertyChanged{
@@ -24,13 +27,25 @@ namespace Beursavond.viewModel {
                 NotifyPropertyChanged();
             }
         }
+        public ObservableCollection<Drink> Drinks { get; set; }
 
         public NewXmlCreatorViewModel(view.NewXmlCreator window) {
             this.window = window;
             askUserForDirectory();
             generateDefaultFileName();
+            addLeftMouseUpListenerAddRow(window.FindName("NewProductButton"));
+            addLeftMouseUpListenerRemoveRow(window.FindName("DeleteProductButton"));
+
+            initRows();
         }
 
+        private void initRows() {
+            Drinks = new ObservableCollection<Drink>();
+            Drinks.Insert(Drinks.Count, new Drink { Name = "", MaximumPrice = 0, PurchasePrice = 0 });
+            //clear first row
+
+        }
+        
         private void generateDefaultFileName() {
             fileName = "beursavond_" + DateTime.Now.ToString("ddd_d_MMM_yyyy") + ".xml";
             int fileIndex = 1; //increased when file exists
@@ -52,6 +67,26 @@ namespace Beursavond.viewModel {
 
         }
 
+        private void addLeftMouseUpListenerAddRow(Object p) {
+            StackPanel button = (StackPanel)p;
+            button.MouseLeftButtonUp += AddNewRow;
+        }
+
+        private void addLeftMouseUpListenerRemoveRow(Object o) {
+            StackPanel button = (StackPanel)o;
+            button.MouseLeftButtonUp += RemoveLastRow;
+        }
+
+        private void RemoveLastRow(object sender, System.Windows.Input.MouseButtonEventArgs e) {
+            if (Drinks.Count > 0) {
+                Drinks.RemoveAt(Drinks.Count - 1);
+            }
+        }
+
+        private void AddNewRow(object sender, System.Windows.Input.MouseButtonEventArgs e) {
+            Drinks.Insert(Drinks.Count, new Drink { Name = "", MaximumPrice = 0, PurchasePrice = 0 });            
+        }
+
         #region propertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -63,5 +98,7 @@ namespace Beursavond.viewModel {
             }
         }
         #endregion propertyChanged
+
+        
     }
 }

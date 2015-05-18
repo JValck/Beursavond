@@ -54,6 +54,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="model\Drink.cs" />
     <Compile Include="viewModel\NewXmlCreatorViewModel.cs" />
     <Compile Include="view\NewXmlCreator.xaml.cs">
       <DependentUpon>NewXmlCreator.xaml</DependentUpon>
@@ -112,6 +113,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="resources\icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="resources\addProduct.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="resources\delete.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
