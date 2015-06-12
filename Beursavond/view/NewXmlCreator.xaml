@@ -3,17 +3,36 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Icon="../resources/Icon.png"
         Title="Nieuwe dranklijst opstellen" Height="600" Width="800">
-    <DockPanel LastChildFill="False">
-        <DockPanel LastChildFill="False" DockPanel.Dock="Top">
-            <!-- products control -->
-            <StackPanel DockPanel.Dock="Top" Orientation="Vertical">
-                <Label>Geef hieronder de dranken in die verkocht zullen worden.</Label>
-                <DataGrid
-                    HorizontalAlignment="Stretch" VerticalScrollBarVisibility="Auto"
-                    ColumnWidth="*"  ItemsSource="{Binding Drinks, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Name="DataGrid" IsReadOnly="False" CanUserAddRows="True" CanUserDeleteRows="True" CanUserResizeColumns="True" CanUserSortColumns="True" CanUserResizeRows="True">
-                </DataGrid>
-            </StackPanel>
-            <Grid DockPanel.Dock="Bottom" ><!-- For better layout-->
+    <DockPanel LastChildFill="True">
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+            <StatusBarItem Grid.Column="0">
+                <TextBlock TextWrapping="Wrap" Text="{Binding UpdateSourceTrigger=PropertyChanged,Path=FileNameDescription}"/>
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="1">
+                <StackPanel Orientation="Horizontal">
+                    <Label>Laatst opgeslagen:</Label>
+                    <TextBlock Text="{Binding UpdateSourceTrigger=PropertyChanged, Path=LatestSaveTime}"/>
+                </StackPanel>
+            </StatusBarItem>
+        </StatusBar>
+
+
+
+        <DockPanel LastChildFill="True" DockPanel.Dock="Top">
+            <Label DockPanel.Dock="Top">Geef hieronder de dranken in die verkocht zullen worden.</Label>
+            
+            <!--BUTTONS-->
+            <Grid DockPanel.Dock="Bottom" Background="Gainsboro"><!-- For better layout-->
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
@@ -31,32 +50,16 @@
                 <StackPanel Background="Chartreuse" Grid.Column="4" Orientation="Horizontal" Name="NewProductButton">
                     <!-- new row-->
                     <Image Source="../resources/addProduct.png" MaxHeight="30"></Image>
-                    <Label Margin="20 0 0 0" VerticalAlignment="Center" Foreground="White">
+                    <Label VerticalAlignment="Center" Foreground="White">
                         Nieuw product
                     </Label>
                 </StackPanel>
-            </Grid>                    
-        </DockPanel>
-        <StatusBar DockPanel.Dock="Bottom">
-            <StatusBar.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                    </Grid>
-                </ItemsPanelTemplate>
-            </StatusBar.ItemsPanel>
-            <StatusBarItem Grid.Column="0">
-                <TextBlock TextWrapping="Wrap" Text="{Binding UpdateSourceTrigger=PropertyChanged,Path=FileNameDescription}"/>   
-            </StatusBarItem>
-            <StatusBarItem Grid.Column="1">
-                <StackPanel Orientation="Horizontal">
-                    <Label>Laatst opgeslagen:</Label>
-                    <TextBlock Text="{Binding UpdateSourceTrigger=PropertyChanged, Path=LatestSaveTime}"/>
-                </StackPanel>
-            </StatusBarItem>
-        </StatusBar>
+            </Grid>
+
+            <!--DATAGRID-->
+            <DataGrid Background="Gainsboro"
+                HorizontalAlignment="Stretch" VerticalScrollBarVisibility="Auto"
+                ColumnWidth="*"  ItemsSource="{Binding Drinks, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Name="DataGrid" IsReadOnly="False" CanUserAddRows="True" CanUserDeleteRows="True" CanUserResizeColumns="True" CanUserSortColumns="True" CanUserResizeRows="True" AutoGenerateColumns="True"/>
+        </DockPanel>        
     </DockPanel>
 </Window>

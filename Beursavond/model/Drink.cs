@@ -10,11 +10,11 @@ namespace Beursavond.model {
             get;
             set;
         }
-        public int PurchasePrice {
+        public double PurchasePrice {
             get;
             set;
         }
-        public int MaximumPrice {
+        public double MaximumPrice {
             get;
             set;
         }
