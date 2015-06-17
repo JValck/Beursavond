@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace view.Properties {
+namespace Beursavond.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

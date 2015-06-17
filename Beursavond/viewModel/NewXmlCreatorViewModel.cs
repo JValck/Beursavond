@@ -11,10 +11,12 @@ using System.Text.RegularExpressions;
 using System.Windows.Controls;
 using System.Collections.ObjectModel;
 using Beursavond.model;
+using System.Windows.Input;
 
 namespace Beursavond.viewModel {
     class NewXmlCreatorViewModel : INotifyPropertyChanged{
         private view.NewXmlCreator window;
+        public ICommand SaveCommand{get; set;}
         private string fileDirectory;
         private string fileName;
         private string _fileNameDescription;
@@ -31,19 +33,22 @@ namespace Beursavond.viewModel {
 
         public NewXmlCreatorViewModel(view.NewXmlCreator window) {
             this.window = window;
+            SaveCommand = new helper.RelayCommand(c => saveXml());
             askUserForDirectory();
             generateDefaultFileName();
             addLeftMouseUpListenerAddRow(window.FindName("NewProductButton"));
             addLeftMouseUpListenerRemoveRow(window.FindName("DeleteProductButton"));
+            
 
             initRows();
         }
 
+        private void saveXml() {
+
+        }
+
         private void initRows() {
             Drinks = new ObservableCollection<Drink>();
-            Drinks.Insert(Drinks.Count, new Drink { Name = "", MaximumPrice = 0, PurchasePrice = 0 });
-            //clear first row
-
         }
         
         private void generateDefaultFileName() {

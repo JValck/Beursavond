@@ -29,7 +29,15 @@
 
 
         <DockPanel LastChildFill="True" DockPanel.Dock="Top">
-            <Label DockPanel.Dock="Top">Geef hieronder de dranken in die verkocht zullen worden.</Label>
+            <!-- Top -->
+            <DockPanel  DockPanel.Dock="Top" LastChildFill="False">
+                <Label>Geef hieronder de dranken in die verkocht zullen worden.</Label>  
+                <Button DockPanel.Dock="Right" Command="{Binding SaveCommand}">
+                    <Label>Opslaan</Label>
+                </Button>
+            </DockPanel>
+            <!-- End of top -->
+            
             
             <!--BUTTONS-->
             <Grid DockPanel.Dock="Bottom" Background="Gainsboro"><!-- For better layout-->

@@ -7,7 +7,7 @@
     <ProjectGuid>{FC1FFA1F-9324-4743-A494-CB81A2F732CD}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>view</RootNamespace>
+    <RootNamespace>Beursavond</RootNamespace>
     <AssemblyName>Beursavond</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -55,6 +55,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="model\Drink.cs" />
+    <Compile Include="model\file\DrinksToXmlSaver.cs" />
     <Compile Include="viewModel\NewXmlCreatorViewModel.cs" />
     <Compile Include="view\NewXmlCreator.xaml.cs">
       <DependentUpon>NewXmlCreator.xaml</DependentUpon>
