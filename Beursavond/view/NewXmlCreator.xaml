@@ -59,7 +59,9 @@
             <!--DATAGRID-->
             <DataGrid Background="Gainsboro"
                 HorizontalAlignment="Stretch" VerticalScrollBarVisibility="Auto"
-                ColumnWidth="*"  ItemsSource="{Binding Drinks, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Name="DataGrid" IsReadOnly="False" CanUserAddRows="True" CanUserDeleteRows="True" CanUserResizeColumns="True" CanUserSortColumns="True" CanUserResizeRows="True" AutoGenerateColumns="True"/>
+                ColumnWidth="*"  ItemsSource="{Binding Drinks, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Name="DataGrid" IsReadOnly="False" 
+                      CanUserAddRows="False" CanUserDeleteRows="False"
+                      CanUserResizeColumns="True" CanUserSortColumns="True" CanUserResizeRows="True"/>
         </DockPanel>        
     </DockPanel>
 </Window>
