@@ -12,9 +12,11 @@ using System.Windows.Controls;
 using System.Collections.ObjectModel;
 using Beursavond.model;
 using System.Windows.Input;
+using Beursavond.model.file;
 
 namespace Beursavond.viewModel {
     class NewXmlCreatorViewModel : INotifyPropertyChanged{
+        private DrinksToXmlSaver fileSaver;
         private view.NewXmlCreator window;
         public ICommand SaveCommand{get; set;}
         private string fileDirectory;
@@ -38,13 +40,13 @@ namespace Beursavond.viewModel {
             generateDefaultFileName();
             addLeftMouseUpListenerAddRow(window.FindName("NewProductButton"));
             addLeftMouseUpListenerRemoveRow(window.FindName("DeleteProductButton"));
-            
+            fileSaver = new DrinksToXmlSaver(fileDirectory+Path.DirectorySeparatorChar+fileName);
 
             initRows();
         }
 
         private void saveXml() {
-
+            fileSaver.writeToXMLDocument(Drinks);
         }
 
         private void initRows() {
