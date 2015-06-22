@@ -13,9 +13,11 @@ using System.Collections.ObjectModel;
 using Beursavond.model;
 using System.Windows.Input;
 using Beursavond.model.file;
+using System.Windows.Threading;
 
 namespace Beursavond.viewModel {
     class NewXmlCreatorViewModel : INotifyPropertyChanged{
+        private DispatcherTimer _autoSaveTimer;
         private DrinksToXmlSaver fileSaver;
         private view.NewXmlCreator window;
         public ICommand SaveCommand{get; set;}
@@ -32,21 +34,70 @@ namespace Beursavond.viewModel {
             }
         }
         public ObservableCollection<Drink> Drinks { get; set; }
+        private string _latestSaveTime;
+        public string LatestSaveTime {
+            get { return _latestSaveTime; }
+            set {
+                _latestSaveTime = value;
+                NotifyPropertyChanged();
+            }
+        }
 
         public NewXmlCreatorViewModel(view.NewXmlCreator window) {
             this.window = window;
+            addWindowListeners();
             SaveCommand = new helper.RelayCommand(c => saveXml());
             askUserForDirectory();
             generateDefaultFileName();
             addLeftMouseUpListenerAddRow(window.FindName("NewProductButton"));
             addLeftMouseUpListenerRemoveRow(window.FindName("DeleteProductButton"));
+            addLeftMouseUpListenerDoneButton(window.FindName("DoneButton"));
             fileSaver = new DrinksToXmlSaver(fileDirectory+Path.DirectorySeparatorChar+fileName);
-
             initRows();
         }
 
+        #region auto save
+        private void addWindowListeners() {
+            window.Loaded += handleWindowLoaded;
+            window.Closing += handleWindowClose;
+        }
+
+        private void handleWindowClose(object sender, CancelEventArgs e) {
+            _autoSaveTimer.Stop();
+            _autoSaveTimer = null;
+        }
+
+        private void handleWindowLoaded(object sender, System.Windows.RoutedEventArgs e) {
+            _autoSaveTimer = new DispatcherTimer();
+            _autoSaveTimer.Interval = TimeSpan.FromMinutes(0.5);
+            _autoSaveTimer.Tick += autoSaveXML;
+            _autoSaveTimer.Start();
+        }
+
+        private void autoSaveXML(object sender, EventArgs e) {
+            saveXml();
+        }
+        #endregion
+
         private void saveXml() {
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.DoWork += saveXMLAsynchronous;
+            worker.RunWorkerAsync();            
+        }
+
+        /// <summary>
+        /// Called by the background worker
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void saveXMLAsynchronous(object sender, DoWorkEventArgs e) {
+            BackgroundWorker worker = sender as BackgroundWorker;
+            if (worker.CancellationPending == true) {
+                e.Cancel = true;
+                return;
+            }
             fileSaver.writeToXMLDocument(Drinks);
+            LatestSaveTime = DateTime.Now.ToString();
         }
 
         private void initRows() {
@@ -84,6 +135,20 @@ namespace Beursavond.viewModel {
             button.MouseLeftButtonUp += RemoveLastRow;
         }
 
+        private void addLeftMouseUpListenerDoneButton(Object o) {
+            StackPanel button = (StackPanel)o;
+            button.MouseLeftButtonUp += Done;
+        }
+
+        /// <summary>
+        /// Called when the user says he's done with adding products
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Done(object sender, MouseButtonEventArgs e) {
+            saveXml();
+        }
+
         private void RemoveLastRow(object sender, System.Windows.Input.MouseButtonEventArgs e) {
             if (Drinks.Count > 0) {
                 Drinks.RemoveAt(Drinks.Count - 1);
@@ -95,7 +160,7 @@ namespace Beursavond.viewModel {
         }
 
         #region propertyChanged
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;        
 
         protected virtual void NotifyPropertyChanged(
            [CallerMemberName] String propertyName = "") {

@@ -21,7 +21,7 @@
             <StatusBarItem Grid.Column="1">
                 <StackPanel Orientation="Horizontal">
                     <Label>Laatst opgeslagen:</Label>
-                    <TextBlock Text="{Binding UpdateSourceTrigger=PropertyChanged, Path=LatestSaveTime}"/>
+                    <TextBlock TextWrapping="Wrap" Text="{Binding Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, Path=LatestSaveTime}" VerticalAlignment="Center"/>
                 </StackPanel>
             </StatusBarItem>
         </StatusBar>
@@ -32,9 +32,9 @@
             <!-- Top -->
             <DockPanel  DockPanel.Dock="Top" LastChildFill="False">
                 <Label>Geef hieronder de dranken in die verkocht zullen worden.</Label>  
-                <Button DockPanel.Dock="Right" Command="{Binding SaveCommand}">
+                <!--<Button DockPanel.Dock="Right" Command="{Binding SaveCommand}">
                     <Label>Opslaan</Label>
-                </Button>
+                </Button>-->
             </DockPanel>
             <!-- End of top -->
             
@@ -60,6 +60,13 @@
                     <Image Source="../resources/addProduct.png" MaxHeight="30"></Image>
                     <Label VerticalAlignment="Center" Foreground="White">
                         Nieuw product
+                    </Label>
+                </StackPanel>
+                <StackPanel Background="MediumBlue" Grid.Column="0" Orientation="Horizontal" Name="DoneButton">
+                    <!-- done-->
+                    <Image Source="../resources/done.png" MaxHeight="30"></Image>
+                    <Label VerticalAlignment="Center" Foreground="White">
+                        Klaar
                     </Label>
                 </StackPanel>
             </Grid>
