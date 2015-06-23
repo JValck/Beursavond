@@ -56,10 +56,18 @@
     </ApplicationDefinition>
     <Compile Include="model\Drink.cs" />
     <Compile Include="model\file\DrinksToXmlSaver.cs" />
+    <Compile Include="viewModel\BeursPropertiesViewModel.cs" />
     <Compile Include="viewModel\NewXmlCreatorViewModel.cs" />
+    <Compile Include="view\BeursProperties.xaml.cs">
+      <DependentUpon>BeursProperties.xaml</DependentUpon>
+    </Compile>
     <Compile Include="view\NewXmlCreator.xaml.cs">
       <DependentUpon>NewXmlCreator.xaml</DependentUpon>
     </Compile>
+    <Page Include="view\BeursProperties.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="view\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -123,6 +131,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="resources\done.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="resources\cancel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="resources\back.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

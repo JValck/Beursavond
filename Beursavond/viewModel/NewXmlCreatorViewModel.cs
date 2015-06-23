@@ -14,6 +14,7 @@ using Beursavond.model;
 using System.Windows.Input;
 using Beursavond.model.file;
 using System.Windows.Threading;
+using Beursavond.view;
 
 namespace Beursavond.viewModel {
     class NewXmlCreatorViewModel : INotifyPropertyChanged{
@@ -147,6 +148,10 @@ namespace Beursavond.viewModel {
         /// <param name="e"></param>
         private void Done(object sender, MouseButtonEventArgs e) {
             saveXml();
+            BeursProperties beursPropertiesWindow = new BeursProperties();
+            beursPropertiesWindow.Owner = window;
+            beursPropertiesWindow.DataContext = new BeursPropertiesViewModel(fileSaver, this, beursPropertiesWindow);
+            beursPropertiesWindow.Show();
         }
 
         private void RemoveLastRow(object sender, System.Windows.Input.MouseButtonEventArgs e) {
@@ -171,6 +176,11 @@ namespace Beursavond.viewModel {
         }
         #endregion propertyChanged
 
-        
+        #region Window handling
+        public void CloseWindow() {
+            window.Close();
+        }
+        #endregion
+
     }
 }
