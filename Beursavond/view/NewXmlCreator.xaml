@@ -21,7 +21,7 @@
             <StatusBarItem Grid.Column="1">
                 <StackPanel Orientation="Horizontal">
                     <Label>Laatst opgeslagen:</Label>
-                    <TextBlock TextWrapping="Wrap" Text="{Binding Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, Path=LatestSaveTime}" VerticalAlignment="Center"/>
+                    <TextBlock TextWrapping="Wrap" Text="{Binding LatestSaveTime, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"/>
                 </StackPanel>
             </StatusBarItem>
         </StatusBar>
@@ -73,10 +73,16 @@
 
             <!--DATAGRID-->
             <DataGrid Background="Gainsboro"
-                HorizontalAlignment="Stretch" VerticalScrollBarVisibility="Auto"
+                HorizontalAlignment="Stretch" VerticalScrollBarVisibility="Auto" AutoGenerateColumns="False"
                 ColumnWidth="*"  ItemsSource="{Binding Drinks, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Name="DataGrid" IsReadOnly="False" 
                       CanUserAddRows="False" CanUserDeleteRows="False"
-                      CanUserResizeColumns="True" CanUserSortColumns="True" CanUserResizeRows="True"/>
+                      CanUserResizeColumns="True" CanUserSortColumns="True" CanUserResizeRows="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Header="Product"/>
+                    <DataGridTextColumn Binding="{Binding PurchasePrice, UpdateSourceTrigger=PropertyChanged}" Header="Aankoopprijs" />
+                    <DataGridTextColumn Binding="{Binding MaximumPrice, UpdateSourceTrigger=PropertyChanged}" Header="Maximumprijs" />
+                </DataGrid.Columns>
+            </DataGrid>
         </DockPanel>        
     </DockPanel>
 </Window>

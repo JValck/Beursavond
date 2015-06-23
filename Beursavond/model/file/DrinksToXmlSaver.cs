@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,11 +10,11 @@ using System.Xml.Linq;
 
 namespace Beursavond.model.file {
     class DrinksToXmlSaver {
-        private ObservableCollection<Drink> drinks;
+        private BindingList<Drink> drinks;
         private String fileName;
         private XDocument document;
 
-        public DrinksToXmlSaver(ObservableCollection<Drink> drinks, String fileName) {
+        public DrinksToXmlSaver(BindingList<Drink> drinks, String fileName) {
             this.fileName = fileName;
             this.drinks = drinks;
             document = new XDocument(new XElement("beurs"));
@@ -31,7 +32,7 @@ namespace Beursavond.model.file {
         /// <summary>
         /// Saves the collection of drinks to the file
         /// </summary>
-        public void writeToXMLDocument(ObservableCollection<Drink> drinks) {
+        public void writeToXMLDocument(BindingList<Drink> drinks) {
             XElement drinksNode = new XElement("drinks");
             foreach (Drink drink in drinks) {
                 drinksNode.Add(new XElement("drink",

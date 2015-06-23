@@ -33,7 +33,7 @@ namespace Beursavond.viewModel {
                 NotifyPropertyChanged();
             }
         }
-        public ObservableCollection<Drink> Drinks { get; set; }
+        public BindingList<Drink> Drinks { get; set; }
         private string _latestSaveTime;
         public string LatestSaveTime {
             get { return _latestSaveTime; }
@@ -82,7 +82,7 @@ namespace Beursavond.viewModel {
         private void saveXml() {
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork += saveXMLAsynchronous;
-            worker.RunWorkerAsync();            
+            worker.RunWorkerAsync();      
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace Beursavond.viewModel {
         }
 
         private void initRows() {
-            Drinks = new ObservableCollection<Drink>();
+            Drinks = new BindingList<Drink>();
         }
         
         private void generateDefaultFileName() {
