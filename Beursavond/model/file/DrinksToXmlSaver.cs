@@ -38,7 +38,8 @@ namespace Beursavond.model.file {
                 drinksNode.Add(new XElement("drink",
                     new XElement("name", drink.Name),
                     new XElement("maxPrice", drink.MaximumPrice),
-                    new XElement("minPrice", drink.PurchasePrice)
+                    new XElement("purchasePrice", drink.PurchasePrice),
+                    new XElement("amount", drink.Amount)
                     ));
             }
             IEnumerable<XElement> currentDrinksElements = document.Root.Descendants("drinks");

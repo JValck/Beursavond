@@ -9,6 +9,7 @@ namespace Beursavond.model {
     class Drink : INotifyPropertyChanged{
         private string _name;
         private double _purchasePrice, _maximumPrice;
+        private int _amount;
         public event PropertyChangedEventHandler PropertyChanged;
 
         public string Name {
@@ -36,6 +37,15 @@ namespace Beursavond.model {
             set {
                 _maximumPrice = value;
                 NotifyPropertyChanged("MaximumPrice");
+            }
+        }
+        public int Amount {
+            get {
+                return _amount;
+            }
+            set {
+                _amount = value;
+                NotifyPropertyChanged("Amount");
             }
         }
 

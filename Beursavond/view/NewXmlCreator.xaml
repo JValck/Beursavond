@@ -79,8 +79,9 @@
                       CanUserResizeColumns="True" CanUserSortColumns="True" CanUserResizeRows="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Header="Product"/>
-                    <DataGridTextColumn Binding="{Binding PurchasePrice, UpdateSourceTrigger=PropertyChanged}" Header="Aankoopprijs" />
-                    <DataGridTextColumn Binding="{Binding MaximumPrice, UpdateSourceTrigger=PropertyChanged}" Header="Maximumprijs" />
+                    <DataGridTextColumn Binding="{Binding PurchasePrice, UpdateSourceTrigger=PropertyChanged}" Header="Totale aankoopprijs" />
+                    <DataGridTextColumn Binding="{Binding Amount, UpdateSourceTrigger=PropertyChanged}" Header="Hoeveelheid (# stuks)" />
+                    <DataGridTextColumn Binding="{Binding MaximumPrice, UpdateSourceTrigger=PropertyChanged}" Header="Maximumprijs (per stuk)" />
                 </DataGrid.Columns>
             </DataGrid>
         </DockPanel>        
