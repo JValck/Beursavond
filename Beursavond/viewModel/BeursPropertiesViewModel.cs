@@ -15,6 +15,7 @@ namespace Beursavond.viewModel {
         private model.file.DrinksToXmlSaver fileSaver;
         private NewXmlCreatorViewModel newXmlCreatorViewModel;
         private view.BeursProperties beursPropertiesWindow;
+        private bool _isRandomStrategy, _isStockStrategy;
 
         public double Round {
             get {
@@ -25,6 +26,16 @@ namespace Beursavond.viewModel {
                 NotifyPropertyChanged("Round");
             }
         }
+        public bool IsRandomStrategy {
+            get { return _isRandomStrategy; }
+            set { _isRandomStrategy = value; NotifyPropertyChanged("IsRandomStrategy"); }
+        }
+        public bool IsStockStrategy { get { return _isStockStrategy; }
+            set {
+                _isStockStrategy = value;
+                NotifyPropertyChanged("IsStockStrategy");
+            }
+        }
 
         public BeursPropertiesViewModel(DrinksToXmlSaver fileSaver, NewXmlCreatorViewModel newXmlCreatorViewModel, BeursProperties beursPropertiesWindow) {
             this.fileSaver = fileSaver;
@@ -32,6 +43,7 @@ namespace Beursavond.viewModel {
             this.beursPropertiesWindow = beursPropertiesWindow;
             addLeftMouseUpListenerCancelButton(beursPropertiesWindow.FindName("CancelButton"));
             addLeftMouseUpListenerOKButton(beursPropertiesWindow.FindName("OKButton"));
+            IsRandomStrategy = true;
         }
 
         #region Button handling
@@ -50,8 +62,18 @@ namespace Beursavond.viewModel {
         }
 
         private void okButtonClicked(object sender, System.Windows.Input.MouseButtonEventArgs e) {
-            fileSaver.AddAtributes(Round);
+            fileSaver.AddAtributes(Round, handleStrategy());
             beursPropertiesWindow.Close();            
+        }
+
+        private string handleStrategy() {
+            if (IsRandomStrategy) {
+                return "Random";
+            }
+            if (IsStockStrategy) {
+                return "Stock";
+            }
+            return "";
         }
         #endregion
 

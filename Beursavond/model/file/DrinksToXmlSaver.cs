@@ -59,10 +59,19 @@ namespace Beursavond.model.file {
         /// Appends attributes to the document
         /// </summary>
         /// <param name="afronding">Number to round</param>
-        public void AddAtributes(double afronding) {
+        public void AddAtributes(double afronding, string strategy) {
             addAfronding(afronding);
-
+            addStrategy(strategy);
             _saveXML();
+        }
+
+        private void addStrategy(string strategy) {
+            IEnumerable<XElement> afrondingElement = document.Root.Descendants("strategy");
+            if (afrondingElement.Count() == 0) {
+                document.Root.Add(new XElement("strategy", strategy));
+            } else {
+                document.Root.Descendants("strategy").First().ReplaceWith(new XElement("strategy", strategy));
+            }
         }
 
         private void addAfronding(double afronding) {

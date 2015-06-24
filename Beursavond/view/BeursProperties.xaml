@@ -41,8 +41,8 @@
 
             <Label VerticalAlignment="Center" Foreground="White" Grid.Row="1" Grid.Column="0">Strategie:</Label>
             <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1">
-                <RadioButton GroupName="Strategy" IsChecked="True" Foreground="White">Willekeurig</RadioButton>
-                <RadioButton GroupName="Strategy" IsEnabled="False" Foreground="White">Stock</RadioButton>
+                <RadioButton GroupName="Strategy" IsChecked="{Binding IsRandomStrategy, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Foreground="White">Willekeurig</RadioButton>
+                <RadioButton GroupName="Strategy" IsChecked="{Binding IsStockStrategy, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="False" Foreground="White">Stock</RadioButton>
             </StackPanel>
         </Grid>
     </DockPanel>
